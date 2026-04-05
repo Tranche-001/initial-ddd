@@ -9,8 +9,11 @@ namespace studyRats.Service.Platform.Data
     {
         #region DbSetSection
 
+        #endregion
 
         #region Required On Model Creating
+
+        #endregion
 
 
     }
