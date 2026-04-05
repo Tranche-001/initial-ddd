@@ -1,3 +1,16 @@
 <Solution>
-  <Folder Name="/NewFolder1/" />
+  <Folder Name="/studyRats-platform/" />
+  <Folder Name="/studyRats-platform/Deploy/">
+    <File Path="something-pipeline.yaml" />
+  </Folder>
+  <Folder Name="/studyRats-platform/providers/" />
+  <Folder Name="/studyRats-platform/Source/">
+    <Project Path="iaas.Service.Platform.Facade/studyRats.Service.Platform.Facade.csproj" Id="99ca78e4-f1dd-4293-a3e6-029607de112f" />
+    <Project Path="studyRats.Service.Platform.Api/studyRats.Service.Platform.Api.csproj" Id="01da7dc2-8381-45e9-be2c-e4bda0e738a9" />
+    <Project Path="studyRats.Service.Platform.Application/studyRats.Service.Platform.Application.csproj" Id="8c839021-d09e-4763-aa71-a86ca70b65c5" />
+    <Project Path="studyRats.Service.Platform.Data/studyRats.Service.Platform.Data.csproj" Id="4690404e-1091-41f6-a124-ff39a180dbe0" />
+    <Project Path="studyRats.Service.Platform.Domain/studyRats.Service.Platform.Domain.csproj" Id="029475f7-8a11-49e7-afed-11f53f27256d" />
+    <Project Path="studyRats.Service.Platform.Queries/studyRats.Service.Platform.Queries.csproj" Id="f781377b-e973-4561-a772-949262c87e2f" />
+    <Project Path="studyRats.Service.Platform.Tasks/studyRats.Service.Platform.Tasks.csproj" Id="2b0803ea-600b-48c2-8917-898136321e57" />
+  </Folder>
 </Solution>
