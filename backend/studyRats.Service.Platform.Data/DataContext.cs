@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using studyRats.Service.Platform.Domain.Entities.User;
 
 namespace studyRats.Service.Platform.Data
 {
@@ -9,9 +10,13 @@ namespace studyRats.Service.Platform.Data
     {
         #region DbSetSection
 
+        public DbSet<User> Users { get; set; }
+
         #endregion
 
         #region Required On Model Creating
+
+
 
         #endregion
 

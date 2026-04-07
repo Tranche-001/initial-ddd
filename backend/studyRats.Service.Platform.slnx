@@ -2,6 +2,9 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Packages.props" />
   </Folder>
+  <Folder Name="/studyRats-lib-framework/">
+    <Project Path="studyRats.Library.Framework/studyRats.Library.Framework.csproj" Id="808ee7d4-319b-4af2-bbd5-5ad0ab822203" />
+  </Folder>
   <Folder Name="/studyRats-platform/" />
   <Folder Name="/studyRats-platform/Deploy/">
     <File Path="something-pipeline.yaml" />
