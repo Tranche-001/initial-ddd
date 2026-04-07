@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using studyRats.Library.Framework.Core.Domain.Entity;
 
-namespace iaas.Library.Framework.Core.Data.Configurations
+namespace studyRats.Library.Framework.Core.Data.Configurations
 {
     public abstract class EntityConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Entity<T>
     {

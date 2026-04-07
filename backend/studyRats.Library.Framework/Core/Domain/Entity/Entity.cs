@@ -1,5 +1,4 @@
 ﻿using System;
-using iaas.Library.Framework.Infra.Validations;
 
 namespace studyRats.Library.Framework.Core.Domain.Entity
 {
@@ -33,10 +32,6 @@ namespace studyRats.Library.Framework.Core.Domain.Entity
             newEntity.IsActive = true;
             newEntity.CreateDate = DateTime.UtcNow;
             return newEntity;
-        }
-
-        public virtual void Validate(IValidationHandler handler)
-        {
         }
     }
 }
