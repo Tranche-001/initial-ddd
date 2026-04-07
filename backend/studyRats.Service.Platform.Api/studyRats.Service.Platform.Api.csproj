@@ -20,4 +20,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\studyRats.Service.Platform.Application\studyRats.Service.Platform.Application.csproj" />
+    <ProjectReference Include="..\studyRats.Service.Platform.Data\studyRats.Service.Platform.Data.csproj" />
+    <ProjectReference Include="..\studyRats.Service.Platform.Domain\studyRats.Service.Platform.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
