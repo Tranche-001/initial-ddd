@@ -3,16 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace studyRats.Service.Platform.Domain.Entities.User
+
+namespace studyRats.Service.Platform.Domain.Entities.Users
 {
-    public class User : Entity<User>
+    public class User 
     {
-        //Implementar Stronged Typed ID's no futuro;
-        public Guid Id { get; set;}
 
-        public string Name { get; set;}
+        public User(Guid id, string name, string email)
+        {
+            Id = id;
+            Name = name;
+            Email = email;
+        }
 
-        public string Email { get; set;}
+        //Implementar Stronged Typed ID's n o futuro;
+        public Guid Id { get; private set;}
+
+        public string Name { get; private set;}
+
+        public string Email { get; private set;}
 
     }
 }

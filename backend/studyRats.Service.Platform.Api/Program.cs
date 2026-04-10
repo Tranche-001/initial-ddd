@@ -15,4 +15,4 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DevDatabase");
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer())
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer());

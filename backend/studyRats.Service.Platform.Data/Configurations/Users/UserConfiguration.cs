@@ -1,4 +1,4 @@
-﻿using studyRats.Service.Platform.Domain.Entities.User;
+﻿using studyRats.Service.Platform.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace studyRats.Service.Platform.Data.Configurations.Users
 {
-    public class UserConfiguration: EntityConfigurationBase<User>
+    public class UserConfiguration: IEntityTypeConfiguration<User>
     {
         public UserConfiguration() { }
-        public override void ConfigureEntityFields(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users");
             builder.HasKey(t => t.Id);
