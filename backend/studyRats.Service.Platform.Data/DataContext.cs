@@ -11,7 +11,6 @@ namespace studyRats.Service.Platform.Data
     public class DataContext : DbContext, IUnitOfWork
     {
 
-
         public DataContext(DbContextOptions<DataContext> options): base(options)
         {}
 
@@ -29,9 +28,6 @@ namespace studyRats.Service.Platform.Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
 
-
         #endregion
-
-
     }
 }

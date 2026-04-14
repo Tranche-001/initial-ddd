@@ -7,13 +7,13 @@ using studyRats.Service.Platform.Domain.Entities.Users;
 
 namespace studyRats.Service.Platform.Application.Users.Commands.Create
 {
-    public class CreateUserCommand(string Name, string Email) : IRequest
+    public class CreateUserCommand(string Name, string Email) : IRequest<User>
     {
         public string Name { get; } = Name;
         public string Email { get; } = Email;
     }
 
-    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
+    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -23,14 +23,15 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
-        public Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User?> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User(Guid.NewGuid(),
-                request.Name,
-                request.Email);
+            var user = await _userRepository.GetByIdAsync(new Guid());
 
             _userRepository.Add(user);
 
-            return _unitOfWork.SaveChangesAsync(cancellationToken);
+            _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return user;
+        }
     }
 }

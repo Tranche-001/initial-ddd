@@ -11,4 +11,10 @@
     <Folder Include="GenericTopic\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\iaas.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
+    <ProjectReference Include="..\studyRats.Service.Platform.Data\studyRats.Service.Platform.Data.csproj" />
+    <ProjectReference Include="..\studyRats.Service.Platform.Domain\studyRats.Service.Platform.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
