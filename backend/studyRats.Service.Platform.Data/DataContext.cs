@@ -8,7 +8,7 @@ using System.Text;
 
 namespace studyRats.Service.Platform.Data
 {
-    public class DataContext : DbContext, IUnitOfWork
+    public class DataContext : DbContext
     {
 
         public DataContext(DbContextOptions<DataContext> options): base(options)

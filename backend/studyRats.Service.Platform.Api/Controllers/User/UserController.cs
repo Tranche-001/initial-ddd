@@ -1,32 +1,32 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using studyRats.Service.Platform.Application.Users.Create;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using studyRats.Service.Platform.Application.Users.Queries;
 
 namespace studyRats.Service.Platform.Api.Controllers.User
 {
-    [Route("api/users/[controller]")]
+    [Route("api/users/")]
     [ApiController]
     public class UserController : ControllerBase
     {
 
-        protected readonly IMediator _mediator;
+        // Sender vem do Mediatr Library
+        protected readonly ISender _sender;
         public UserController(
-            IMediator mediator)
+            ISender sender)
         {
-            _mediator = mediator;
+            _sender = sender;
         }
 
-
-        [HttpPost]
+        [HttpGet]
         [Route("")]
-        public async Task<IActionResult> CreateNewUser(CreateUserRequest request)
+        public async Task<IActionResult> GetAllUsers()
         {
-            var command = new CreateUserCommand();
-            var response = await _mediator.Send(command);
+            var command = new GetAllUsersQuery();
+            var response = await _sender.Send(command);
             return Ok(response);
         }
     }

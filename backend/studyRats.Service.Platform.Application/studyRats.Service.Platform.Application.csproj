@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\studyRats.Service.Platform.Domain\studyRats.Service.Platform.Domain.csproj" />
-    <ProjectReference Include="..\studyRats.Service.Platform.Queries\studyRats.Service.Platform.Queries.csproj" />
   </ItemGroup>
 
 </Project>

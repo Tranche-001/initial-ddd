@@ -1,13 +1,13 @@
-﻿    using MediatR;
-    using studyRats.Service.Platform.Domain.Abstractions;
-    using studyRats.Service.Platform.Domain.Entities.Users;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using MediatR;
+using studyRats.Service.Platform.Domain.Abstractions;
+using studyRats.Service.Platform.Domain.Abstractions.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-    namespace studyRats.Service.Platform.Application.Users.Commands.Delete
+namespace studyRats.Service.Platform.Application.Users.Commands.Delete
     {
-        public class DeleteUserCommand : IRequest<DeleteUserCommand>
+        public class DeleteUserCommand : IRequest
         {
             public Guid Id { get; set; }
 
@@ -36,7 +36,7 @@
                 {
                 }
 
-                _userRepository.Delete(user);
+                _userRepository.Remove(user);
 
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
             }

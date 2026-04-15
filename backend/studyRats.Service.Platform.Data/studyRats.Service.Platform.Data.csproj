@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Interceptors\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

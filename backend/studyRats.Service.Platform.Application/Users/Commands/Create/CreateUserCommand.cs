@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using studyRats.Service.Platform.Domain.Abstractions;
+using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
 
 namespace studyRats.Service.Platform.Application.Users.Commands.Create

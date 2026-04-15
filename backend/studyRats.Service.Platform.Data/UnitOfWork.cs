@@ -6,7 +6,7 @@ using System.Text;
 
 namespace studyRats.Service.Platform.Data
 {
-    internal sealed class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _dbContext;
 
