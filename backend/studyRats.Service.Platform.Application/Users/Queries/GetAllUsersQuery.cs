@@ -14,16 +14,18 @@ namespace studyRats.Service.Platform.Application.Users.Queries
     internal class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<User>?>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllUsersQueryHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public GetAllUsersQueryHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _unitOfWork = unitOfWork;
         }
         public async Task<IEnumerable<User>?> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetAllAsync();
+            if (users == null)
+            {
+
+            }
             return users;
         }
     }
