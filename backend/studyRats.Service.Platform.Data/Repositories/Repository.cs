@@ -19,6 +19,14 @@ namespace studyRats.Service.Platform.Data.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
+
+        protected async Task<T> ExecuteAsync<T>(Func<Task<T>> action)
+        {
+            try { return await action(); }
+            catch (DbUpdateException ex) { /* Translate & Log here once */ throw; }
+        }
+
+
         public async Task<TEntity?> GetByIdAsync(Guid id)
         {
             // FindAsync is the async version of Find

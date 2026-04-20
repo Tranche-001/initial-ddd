@@ -25,8 +25,12 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
             _unitOfWork = unitOfWork;
         }
         public async Task<User?> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+
+        // If I have a create user request, I must first validate the reqwest info and then execute the code that I want
+        // Validations use the Result Pattern, which is a way to return either a success or an error from a method, without throwing exceptions.
+        // This allows for better error handling and more readable code.
         {
-            var user = await _userRepository.GetByIdAsync(new Guid());
+            var user = User.Create(request.Name, request.Name);
 
             _userRepository.Add(user);
 
