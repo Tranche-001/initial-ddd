@@ -6,6 +6,8 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
     // Doubts about implementation:
     // Read https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     // Read https://enterprisecraftsmanship.com/posts/functional-c-primitive-obsession/
+    // Read https://enterprisecraftsmanship.com/posts/combining-asp-net-core-attributes-with-value-objects/
+
     public class Email : ValueObject
     {
         public string Value { get; init; }
@@ -37,13 +39,13 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
         private static Result isEmailValid(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
-                return Result.Fail("E-mail can't be empty");
+                return Result.Fail(Errors.Email.Empty());
 
             if (email.Length > MAX_EMAIL_LENGTH)
-                return Result.Fail("E-mail is too long");
+                return Result.Fail(Errors.Email.TooLong());
 
             if (!Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
-                return Result.Fail("E-mail is invalid");
+                return Result.Fail(Errors.Email.InvalidFormat());
             
             return Result.Ok();
         }

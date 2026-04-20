@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using studyRats.Service.Platform.Application.Users.Queries;
+using studyRats.Service.Platform.Api.Infrastructure;
 
 namespace studyRats.Service.Platform.Api.Controllers.User
 {
@@ -27,6 +28,15 @@ namespace studyRats.Service.Platform.Api.Controllers.User
         {
             var command = new GetAllUsersQuery();
             var response = await _sender.Send(command);
+            if (response.IsSuccess)
+            {
+                return Ok();
+            }
+            // If response has error of type NotFound, return NotFound with error message
+            if (response.Errors == null)
+            {
+                return NotFound(Envelope.Error(response));
+            }
             return Ok(response);
         }
     }

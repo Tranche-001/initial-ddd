@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using MediatR;
-using FluentResults
+using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
+using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Application.Users.Queries
 {
@@ -29,8 +30,9 @@ namespace studyRats.Service.Platform.Application.Users.Queries
 
             if (users == null)
             {
-                return Result.Fail(new Error("No users found"));
+                return Result.Fail(Errors.General.NotFound("User", "All"));
             }
+
             return Result.Ok(users);
         }
     }

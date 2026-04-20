@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using studyRats.Service.Platform.Api.Infrastructure;
+using studyRats.Service.Platform.Application;
 using studyRats.Service.Platform.Data;
 using studyRats.Service.Platform.Data.Repositories;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
-using studyRats.Service.Platform.Application;
 
 // See https://aka.ms/new-console-template for more information
 
@@ -28,8 +29,12 @@ builder.Configuration
 
 // Add services to the Container
 
-builder.Services.AddControllers();
-
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        // This is the interjection!
+        options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+    });
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

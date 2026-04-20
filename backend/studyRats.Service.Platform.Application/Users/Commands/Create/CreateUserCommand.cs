@@ -29,13 +29,16 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
         // Validations use the Result Pattern, which is a way to return either a success or an error from a method, without throwing exceptions.
         // This allows for better error handling and more readable code.
         {
-            Result<Email> emailResult = Email.Create(request.Email);
-            if (emailResult.IsFailed)
-            {
 
+            var user = User.Create(request.Name);
+
+            if (user == null)
+            {
+                Result.Fail(Errors.General.NotFound(request.Name))
             }
 
-            var user = User.Create(request.Name, emailResult.Value);
+
+
 
             _userRepository.Add(user);
 
