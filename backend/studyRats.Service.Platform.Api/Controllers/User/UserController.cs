@@ -6,6 +6,8 @@ using System.Text;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 using studyRats.Service.Platform.Application.Users.Queries;
 using studyRats.Service.Platform.Api.Infrastructure;
+using studyRats.Service.Platform.Domain.ValueObjects;
+using FluentResults;
 
 namespace studyRats.Service.Platform.Api.Controllers.User
 {
@@ -30,12 +32,12 @@ namespace studyRats.Service.Platform.Api.Controllers.User
             var response = await _sender.Send(command);
             if (response.IsSuccess)
             {
-                return Ok();
+                return Ok(response.Value);
             }
             // If response has error of type NotFound, return NotFound with error message
-            if (response.Errors == null)
+            if (response.IsFailed)
             {
-                return NotFound(Envelope.Error(response));
+                return NotFound(Envelope.Error(response.Error(), "anything"));
             }
             return Ok(response);
         }
