@@ -1,6 +1,8 @@
 ﻿using FluentResults;
 using System;
 using System.Text.Json.Serialization;
+using studyRats.Service.Platform.Domain.ValueObjects;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
 
 namespace studyRats.Service.Platform.Api.Infrastructure
 {
@@ -33,12 +35,11 @@ namespace studyRats.Service.Platform.Api.Infrastructure
         }
 
         // Factory method for Errors
-        public static Envelope Error(Result result)
+        public static Envelope Error(Error error, string invalidField)
         {
-            var error = result.Errors.FirstOrDefault();
-            var errorCode = error?.Metadata["ErrorCode"]?.ToString();
+            var errorCode = error?.ErrorCode;
             var errorMessage = error?.Message;
-            var invalidField = error?.Metadata["InvalidField"]?.ToString();
+            
             return new Envelope(null, errorCode, errorMessage, invalidField);
         }
 

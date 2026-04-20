@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Api.Infrastructure
 {
@@ -13,10 +14,10 @@ namespace studyRats.Service.Platform.Api.Infrastructure
             string errorMessage = entry.Errors.First().ErrorMessage;
 
             // 3. I need to deserialize my custom error message to get the error code and the message
-            Error error = Errors.Deserialize(errorMessage);
-            Envelope envelope = Envelope.Error
+            Error error = Error.Deserialize(errorMessage);
+            Envelope envelope = Envelope.Error(error, fieldName);
 
-            return new BadRequestObjectResult(response);
+            return new BadRequestObjectResult(envelope);
         }
     }
 }
