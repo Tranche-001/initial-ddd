@@ -22,14 +22,14 @@ namespace studyRats.Service.Platform.Domain.Entities.Users
             Email = email;
         }
 
-        public static Result<User> Creates(string name, Email email)
+        public static User Create(string name, Email email)
         {
             if(name == null)
                 throw new ArgumentNullException(nameof(name));
             if(email == null)
                 throw new ArgumentNullException(nameof(email));
             
-            return Result.Ok(new User(Guid.NewGuid(), name, email));
+            return new User(Guid.NewGuid(), name, email);
         }
     }
 }

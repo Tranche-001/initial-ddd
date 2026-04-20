@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
+﻿using MediatR;
+using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
+using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Application.Users.Commands.Create
 {
@@ -30,7 +29,13 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
         // Validations use the Result Pattern, which is a way to return either a success or an error from a method, without throwing exceptions.
         // This allows for better error handling and more readable code.
         {
-            var user = User.Create(request.Name, request.Name);
+            Result<Email> emailResult = Email.Create(request.Email);
+            if (emailResult.IsFailed)
+            {
+
+            }
+
+            var user = User.Create(request.Name, emailResult.Value);
 
             _userRepository.Add(user);
 
