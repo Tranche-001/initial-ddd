@@ -1,5 +1,7 @@
 ﻿public abstract class ValueObject
 {
+    // Doubts about implementation:
+    // Read https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     protected abstract IEnumerable<object> GetEqualityComponents();
 
     public override bool Equals(object obj)

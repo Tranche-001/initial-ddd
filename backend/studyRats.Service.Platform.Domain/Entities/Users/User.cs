@@ -4,6 +4,8 @@ using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Domain.Entities.Users
 {
+    // Doubts about implementation
+    // Read https://enterprisecraftsmanship.com/posts/functional-c-primitive-obsession/
     public class User 
     {
         public Guid Id { get; private set;}

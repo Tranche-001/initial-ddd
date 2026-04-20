@@ -1,8 +1,4 @@
 ﻿using FluentResults;
-using Microsoft.EntityFrameworkCore;
-using studyRats.Service.Platform.Domain.ValueObjects;
-using System.Diagnostics;
-using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 
 namespace studyRats.Service.Platform.Domain.ValueObjects
