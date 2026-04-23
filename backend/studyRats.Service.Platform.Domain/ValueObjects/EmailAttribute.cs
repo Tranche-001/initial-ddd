@@ -33,7 +33,7 @@ public sealed class EmailAttribute : ValidationAttribute
         if (emailResult.IsFailed)
         {
             // * Extract the error message from the Result.email 
-            var errorMessage = emailResult.Errors.FirstOrDefault()?.Serialize();
+            var errorMessage = emailResult.Error().Serialize();
 
             return new ValidationResult(errorMessage);
         }

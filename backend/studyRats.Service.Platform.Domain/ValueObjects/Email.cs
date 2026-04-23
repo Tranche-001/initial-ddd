@@ -27,8 +27,7 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
             // 2. Check if it failed. If so, return early with the errors.
             if (validationResult.IsFailed)
             {
-                // We convert the Result to Result<Email> to match the return type
-                return validationResult.ToResult<Email>();
+                return Result.Fail<Email>(validationResult.Error());
             }
 
             // 3. If we got here, everything is valid. Create the object and return success.
@@ -36,7 +35,7 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
             return Result.Ok(newEmail);
         }
 
-        private static Result isEmailValid(string email)
+        private static Result<Email> isEmailValid(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return Result.Fail(Errors.Email.Empty());

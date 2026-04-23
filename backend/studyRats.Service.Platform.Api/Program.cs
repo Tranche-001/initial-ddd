@@ -1,4 +1,5 @@
 ﻿
+using FluentResults;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,62 +11,70 @@ using studyRats.Service.Platform.Data;
 using studyRats.Service.Platform.Data.Repositories;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Errors.Error;
 
 // See https://aka.ms/new-console-template for more information
-
-Console.WriteLine("Hello, World!");
-
-
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+try
 {
-    Args = args,
-    ContentRootPath = Directory.GetCurrentDirectory()
-});
+    Console.WriteLine("Hello, World!");
 
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
 
-// Add services to the Container
-
-builder.Services.AddControllers()
-    .ConfigureApiBehaviorOptions(options =>
+    var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     {
-        // This is the interjection!
-        options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+        Args = args,
+        ContentRootPath = Directory.GetCurrentDirectory()
     });
 
-// Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    builder.Configuration
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddEnvironmentVariables();
 
-//Database
-var connectionString = builder.Configuration.GetConnectionString("DevDatabase");
+    // Add services to the Container
 
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new Exception("Could not find the 'DevDatabase' connection string. Check appsettings.json!");
-}
+    builder.Services.AddControllers()
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            // This is the interjection!
+            options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+        });
 
-builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
+    // Swagger
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-// MediatR
-builder.Services.AddMediatR(configuration =>
-{
-    configuration.RegisterServicesFromAssembly(typeof(Program).Assembly);
-    configuration.RegisterServicesFromAssembly(typeof(MediatrDI).Assembly);
-});
+    //Database
+    var connectionString = builder.Configuration.GetConnectionString("DevDatabase");
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new Exception("Could not find the 'DevDatabase' connection string. Check appsettings.json!");
+    }
+
+    builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
+
+    // MediatR
+    builder.Services.AddMediatR(configuration =>
+    {
+        configuration.RegisterServicesFromAssembly(typeof(Program).Assembly);
+        configuration.RegisterServicesFromAssembly(typeof(MediatrDI).Assembly);
+    });
+
+    // FluentResults
+    Result.Setup(settings =>
+    {
+        settings.ErrorFactory = (errorMessage) => new Error(errorMessage);
+    });
+
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
-var app = builder.Build();
+    var app = builder.Build();
 
-// Swagger
-app.UseSwagger();
+    // Swagger
+    app.UseSwagger();
     // Sets Swagger to load at the root URL (localhost:port/) instead of (localhost:port/swagger)
     app.UseSwaggerUI(c =>
     {
@@ -74,10 +83,19 @@ app.UseSwagger();
     });
 
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-app.Run();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine("--- CRITICAL STARTUP ERROR ---");
+    Console.WriteLine(ex.Message);
+    Console.WriteLine(ex.StackTrace);
+    Console.WriteLine("Press any key to exit...");
+    Console.ReadKey(); // This keeps the window open so you can see the mistake!
+}

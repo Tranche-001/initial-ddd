@@ -25,7 +25,7 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
     {
         /// <summary>
         /// Returns the first error as our custom Domain Error class.
-        /// Returns null if there are no errors or if the first error is not our type.
+        /// Throw an exception if there are no errors or if the first error is not our type.
         /// </summary>
         public static Error Error(this ResultBase result)
         {

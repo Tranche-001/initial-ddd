@@ -1,8 +1,5 @@
-﻿using FluentResults;
-using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using studyRats.Service.Platform.Domain.ValueObjects;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
 
 namespace studyRats.Service.Platform.Api.Infrastructure
 {
@@ -35,18 +32,37 @@ namespace studyRats.Service.Platform.Api.Infrastructure
         }
 
         // Factory method for Errors
-        public static Envelope Error(Error error, string invalidField)
+
+        // For Errors that did not come from DTO validation and therefore does not have a Invalid Field
+        public static Envelope Error(Error error)
         {
             var errorCode = error?.ErrorCode;
             var errorMessage = error?.Message;
             
+            return new Envelope(null, errorCode, errorMessage, null);
+        }
+
+        // For erros that did come from the DTO validation and therefore has an invalid field
+        public static Envelope Error(Error error, string invalidField)
+        {
+            var errorCode = error?.ErrorCode;
+            var errorMessage = error?.Message;
             return new Envelope(null, errorCode, errorMessage, invalidField);
         }
 
-        // Factory method for Success (if you want to use this envelope for successful 200 OK responses too)
-        public static Envelope Success(object result)
+        // Factory method for Success (you want to use this envelope for successful 200 OK responses)
+        public static Envelope Ok(object result)
         {
+            if(result == null)
+            {
+                throw new ArgumentNullException("result in Envelope cannot be null");
+            }
+
             return new Envelope(result, null, null, null);
+        }
+        public static Envelope Ok()
+        {
+            return new Envelope(null, null, null, null);
         }
     }
 }

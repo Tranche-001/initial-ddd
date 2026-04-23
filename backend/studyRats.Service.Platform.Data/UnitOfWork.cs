@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using studyRats.Service.Platform.Domain.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using FluentResults;
+using studyRats.Service.Platform.Domain.Abstractions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using Error = FluentResults.Error;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Errors.Error;
+using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Data
 {
@@ -28,7 +26,7 @@ namespace studyRats.Service.Platform.Data
             catch (DbUpdateConcurrencyException ex)
             {
                 // Another user edited this record at the exact same time.
-                return Result.Fail(new Error("Data was modified by another user. Please reload.").CausedBy(ex));
+                return Result.Fail(Errors.Database.DbUpdateConcurrency(ex));
             }
             catch (DbUpdateException ex)
             {

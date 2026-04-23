@@ -1,12 +1,12 @@
-﻿using FluentResults;
-
-
-namespace studyRats.Service.Platform.Domain.ValueObjects
+﻿namespace studyRats.Service.Platform.Domain.ValueObjects
 {
     public class Errors
     {
         public static class General
         {
+
+
+            public static Error NotFound() => new Error("record.not.found", "Record not found");
             public static Error NotFound(string entityName, string identifier)
             {
                 var error = new Error($"{entityName} with identifier {identifier} was not found.", "not.found");
@@ -36,6 +36,16 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
             {
                 var error = new Error("E-mail is invalid.", "email.invalid.format");
                 return error;
+            }
+        }
+
+        public static class Database
+        {
+            public static Error DbUpdateConcurrency(Exception ex)
+            {
+                var error = new Error("Another user edited this record at the exact same time.", "db.update.concurrency").CausedBy(ex);
+                return error;
+
             }
         }
     }

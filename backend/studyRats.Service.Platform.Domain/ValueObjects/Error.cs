@@ -13,13 +13,24 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
         public Dictionary<string, object> Metadata { get; } = new();
         public List<IError> Reasons { get; } = new();
 
-        public Error(string message, string errorCode)
+        protected Error()
+        {
+            Metadata = new Dictionary<string, object>();
+            Reasons = new List<IError>();
+        }
+
+        public Error(string message) : this()
+        {
+            Message = message;
+            ErrorCode = "unspecified.code";
+        }
+
+        public Error(string message, string errorCode) : this()
         {
             Message = message;
             ErrorCode = errorCode;
-            Metadata.Add("ErrorCode", errorCode);
         }
-
+       
         // ValueObject Equality: We define that ErrorCode is what makes an error unique
         protected override IEnumerable<object> GetEqualityComponents()
         {
@@ -47,12 +58,28 @@ namespace studyRats.Service.Platform.Domain.ValueObjects
             }
             catch
             {
-                // Fallback for non-JSON strings (standard ASP.NET errors)
+                // We are expecting that the serialized data is in the correct format, but if it's not, we can return a generic error
                 return new Error(serializedData, "validation.error");
             }
         }
 
-        // Necessary to satisfy the IError interface for FluentResults
-        public override string ToString() => $"[{ErrorCode}] {Message}";
+        //More code from FluentResults' Error class that we might want;
+        public Error CausedBy(IError error)
+        {
+            if (error == null)
+                throw new ArgumentNullException(nameof(error));
+
+            Reasons.Add(error);
+            return this;
+        }
+
+        public Error CausedBy(Exception exception)
+        {
+            if (exception == null)
+                throw new ArgumentNullException(nameof(exception));
+
+            Reasons.Add(new ExceptionalError(exception));
+            return this;
+        }
     }
 }
