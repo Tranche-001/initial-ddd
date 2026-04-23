@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
+﻿using MediatR;
+using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
+using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Application.Users.Commands.Create
 {
-    public class CreateUserCommand(string Name, string Email) : IRequest<User>
+    public class CreateUserCommand(string Name, string Email) : IRequest<Result<User>>
     {
         public string Name { get; } = Name;
         public string Email { get; } = Email;
     }
 
-    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
+    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result<User>>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -24,15 +23,20 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<User?> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<User?>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(new Guid());
+            // Por causa do EmailAttribute, o email já passou pela lógica de validação uma vez,
+            // então não há a necessidade de verificar se o Result foi um Fail aqui
+            // pois se fosse, na verdade ele já deve ter mostrado o erro de validação para o usuário, e não chegaria até aqui
+            var emailResult = Email.Create(request.Email);
+
+            var user = User.Create(request.Name, emailResult.Value);
 
             _userRepository.Add(user);
 
-            _unitOfWork.SaveChangesAsync(cancellationToken);
+            var result = await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return user;
+            return result;
         }
     }
 }

@@ -1,66 +1,87 @@
 ﻿
+using FluentResults;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using studyRats.Service.Platform.Api.Infrastructure;
+using studyRats.Service.Platform.Api.Infrastructure.Middleware;
+using studyRats.Service.Platform.Application;
 using studyRats.Service.Platform.Data;
 using studyRats.Service.Platform.Data.Repositories;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
-using studyRats.Service.Platform.Application;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
 
 // See https://aka.ms/new-console-template for more information
-
-Console.WriteLine("Hello, World!");
-
-
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+try
 {
-    Args = args,
-    ContentRootPath = Directory.GetCurrentDirectory()
-});
-
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
-
-// Add services to the Container
-
-builder.Services.AddControllers();
+    Console.WriteLine("Hello, World!");
 
 
-// Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+    {
+        Args = args,
+        ContentRootPath = Directory.GetCurrentDirectory()
+    });
 
-//Database
-var connectionString = builder.Configuration.GetConnectionString("DevDatabase");
+    builder.Configuration
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddEnvironmentVariables();
 
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new Exception("Could not find the 'DevDatabase' connection string. Check appsettings.json!");
-}
+    // Add services to the Container
 
-builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
+    builder.Services.AddControllers()
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            // This is the interjection!
+            options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+        });
 
-// MediatR
-builder.Services.AddMediatR(configuration =>
-{
-    configuration.RegisterServicesFromAssembly(typeof(Program).Assembly);
-    configuration.RegisterServicesFromAssembly(typeof(MediatrDI).Assembly);
-});
+    // Swagger
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+    //Database
+    var connectionString = builder.Configuration.GetConnectionString("DevDatabase");
+
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new Exception("Could not find the 'DevDatabase' connection string. Check appsettings.json!");
+    }
+
+    builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
+
+    // MediatR
+    builder.Services.AddMediatR(configuration =>
+    {
+        configuration.RegisterServicesFromAssembly(typeof(Program).Assembly);
+        configuration.RegisterServicesFromAssembly(typeof(MediatrDI).Assembly);
+    });
+
+    // GlobalExceptionHandler
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddProblemDetails(); // necessário para o pipeline funcionar
+
+    // FluentResults
+    Result.Setup(settings =>
+    {
+        settings.ErrorFactory = (errorMessage) => new Error(errorMessage);
+    });
+
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
-var app = builder.Build();
+    var app = builder.Build();
 
-// Swagger
-app.UseSwagger();
+    app.UseExceptionHandler(); // deve vir antes de UseRouting, UseAuthorization, etc.
+
+    // Swagger
+    app.UseSwagger();
     // Sets Swagger to load at the root URL (localhost:port/) instead of (localhost:port/swagger)
     app.UseSwaggerUI(c =>
     {
@@ -69,10 +90,19 @@ app.UseSwagger();
     });
 
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-app.Run();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine("--- CRITICAL STARTUP ERROR ---");
+    Console.WriteLine(ex.Message);
+    Console.WriteLine(ex.StackTrace);
+    Console.WriteLine("Press any key to exit...");
+    Console.ReadKey(); // This keeps the window open so you can see the mistake!
+}
