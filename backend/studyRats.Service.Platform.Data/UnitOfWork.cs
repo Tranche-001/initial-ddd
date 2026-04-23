@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Errors.Error;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
 using studyRats.Service.Platform.Domain.ValueObjects;
 
 namespace studyRats.Service.Platform.Data

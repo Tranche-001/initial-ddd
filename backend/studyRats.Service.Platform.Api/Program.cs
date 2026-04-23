@@ -6,12 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using studyRats.Service.Platform.Api.Infrastructure;
+using studyRats.Service.Platform.Api.Infrastructure.Middleware;
 using studyRats.Service.Platform.Application;
 using studyRats.Service.Platform.Data;
 using studyRats.Service.Platform.Data.Repositories;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Errors.Error;
+using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
 
 // See https://aka.ms/new-console-template for more information
 try
@@ -60,6 +61,10 @@ try
         configuration.RegisterServicesFromAssembly(typeof(MediatrDI).Assembly);
     });
 
+    // GlobalExceptionHandler
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddProblemDetails(); // necessário para o pipeline funcionar
+
     // FluentResults
     Result.Setup(settings =>
     {
@@ -72,6 +77,8 @@ try
 
 
     var app = builder.Build();
+
+    app.UseExceptionHandler(); // deve vir antes de UseRouting, UseAuthorization, etc.
 
     // Swagger
     app.UseSwagger();

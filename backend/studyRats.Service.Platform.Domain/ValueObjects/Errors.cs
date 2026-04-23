@@ -18,6 +18,9 @@
                 var error = new Error($"The value for field '{fieldName}' is of an invalid type.", "value.type.is.invalid");
                 return error;
             }
+
+            public static Error InternalServerError() =>
+                new Error("An unexpected error occurred. Please try again later.", "internal.server.error");    
         }
 
         public static class Email

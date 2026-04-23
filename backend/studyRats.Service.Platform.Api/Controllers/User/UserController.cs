@@ -44,4 +44,5 @@ namespace studyRats.Service.Platform.Api.Controllers.User
             var result = await _sender.Send(command);
             return FromResult(result);
         }
+    }
 }
