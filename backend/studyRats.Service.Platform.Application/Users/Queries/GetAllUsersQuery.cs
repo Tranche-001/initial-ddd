@@ -27,7 +27,6 @@ namespace studyRats.Service.Platform.Application.Users.Queries
         public async Task<Result<IEnumerable<User>?>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetAllAsync();
-            users = null; // Simulate not found
 
             if (users == null)
             {
