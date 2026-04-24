@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
-using studyRats.Service.Platform.Domain.ValueObjects;
+using Error = studyRats.Service.Platform.Domain.Abstractions.DomainErrors.Error;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 
 namespace studyRats.Service.Platform.Data
 {

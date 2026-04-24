@@ -1,11 +1,9 @@
-﻿namespace studyRats.Service.Platform.Domain.ValueObjects
+﻿namespace studyRats.Service.Platform.Domain.Abstractions.DomainErrors
 {
     public class Errors
     {
         public static class General
         {
-
-
             public static Error NotFound() => new Error("record.not.found", "Record not found");
             public static Error NotFound(string entityName, string identifier)
             {

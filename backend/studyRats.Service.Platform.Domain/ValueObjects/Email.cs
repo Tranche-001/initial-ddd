@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 using System.Text.RegularExpressions;
 
 namespace studyRats.Service.Platform.Domain.ValueObjects

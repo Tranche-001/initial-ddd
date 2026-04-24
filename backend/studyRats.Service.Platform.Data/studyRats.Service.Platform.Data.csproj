@@ -8,9 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interceptors\**" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="Interceptors\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="Interceptors\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Interceptors\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Authorizations\" />
-    <Folder Include="Properties\" />
+    <Compile Remove="Authorizations\**" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Authorizations\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Authorizations\**" />
+    <None Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>

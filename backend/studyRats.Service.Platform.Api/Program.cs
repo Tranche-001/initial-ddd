@@ -12,7 +12,7 @@ using studyRats.Service.Platform.Data;
 using studyRats.Service.Platform.Data.Repositories;
 using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
+using Error = studyRats.Service.Platform.Domain.Abstractions.DomainErrors.Error;
 
 // See https://aka.ms/new-console-template for more information
 try

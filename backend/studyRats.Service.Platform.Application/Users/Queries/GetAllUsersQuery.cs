@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using FluentResults;
-using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
-using studyRats.Service.Platform.Domain.ValueObjects;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 
 namespace studyRats.Service.Platform.Application.Users.Queries
 {

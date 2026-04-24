@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using studyRats.Service.Platform.Domain.ValueObjects;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 
-namespace studyRats.Service.Platform.Api.Infrastructure
+namespace studyRats.Service.Platform.Api.Common
 {
     public class Envelope
     {
