@@ -4,6 +4,7 @@ using studyRats.Service.Platform.Domain.Abstractions;
 using studyRats.Service.Platform.Domain.Abstractions.Repositories;
 using studyRats.Service.Platform.Domain.Entities.Users;
 using studyRats.Service.Platform.Domain.ValueObjects;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 
 namespace studyRats.Service.Platform.Application.Users.Commands.Create
 {
@@ -34,9 +35,13 @@ namespace studyRats.Service.Platform.Application.Users.Commands.Create
 
             _userRepository.Add(user);
 
-            var result = await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-            return result;
+            var result = (await _unitOfWork.SaveChangesAsync(cancellationToken));
+            if (result.IsFailed)
+            {
+                return Result.Fail(result.Error());
+            }
+            
+            return Result.Ok(user);
         }
     }
 }

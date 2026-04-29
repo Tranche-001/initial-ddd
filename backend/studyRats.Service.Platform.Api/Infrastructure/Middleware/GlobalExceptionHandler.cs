@@ -47,3 +47,7 @@ namespace studyRats.Service.Platform.Api.Infrastructure.Middleware
         }
     }
 }
+
+//This is the specific type for Connection issue, I think
+//NpgsqlException
+//System.InvalidOperationException
