@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\iaas.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
+	  <ProjectReference Include="..\studyRats.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
   </ItemGroup>
 
 </Project>
