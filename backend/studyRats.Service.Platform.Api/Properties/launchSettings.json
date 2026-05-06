@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "studyRats.Service.Platform.Api": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

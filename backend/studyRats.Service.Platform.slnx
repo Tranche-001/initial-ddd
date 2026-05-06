@@ -5,7 +5,10 @@
   <Folder Name="/studyRats-lib-framework/">
     <Project Path="studyRats.Library.Framework/studyRats.Library.Framework.csproj" Id="808ee7d4-319b-4af2-bbd5-5ad0ab822203" />
   </Folder>
-  <Folder Name="/studyRats-platform/" />
+  <Folder Name="/studyRats-platform/">
+    <File Path=".dockerignore" />
+    <File Path="studyRats.Service.Platform.Api/Dockerfile" />
+  </Folder>
   <Folder Name="/studyRats-platform/Deploy/">
     <File Path="something-pipeline.yaml" />
   </Folder>
@@ -17,4 +20,7 @@
     <Project Path="studyRats.Service.Platform.Data/studyRats.Service.Platform.Data.csproj" Id="4690404e-1091-41f6-a124-ff39a180dbe0" />
     <Project Path="studyRats.Service.Platform.Domain/studyRats.Service.Platform.Domain.csproj" Id="029475f7-8a11-49e7-afed-11f53f27256d" />
   </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>
