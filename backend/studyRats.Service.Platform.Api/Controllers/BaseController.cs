@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using Microsoft.AspNetCore.Mvc;
-using studyRats.Service.Platform.Api.Infrastructure;
+using studyRats.Service.Platform.Api.Common;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 using studyRats.Service.Platform.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;

@@ -8,13 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\**" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Settings\**" />
+    <Compile Remove="Validations\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Settings\**" />
+    <EmbeddedResource Remove="Validations\**" />
+    <None Remove="Enums\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Models\**" />
+    <None Remove="Settings\**" />
+    <None Remove="Validations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Entities\StudySession\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Models\" />
-    <Folder Include="Validations\" />
-    <Folder Include="Settings\" />
-    <Folder Include="ValueObjects\Errors\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\iaas.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
+	  <ProjectReference Include="..\studyRats.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
   </ItemGroup>
 
 </Project>
