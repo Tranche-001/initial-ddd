@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FluentResults;
 using studyRats.Service.Platform.Domain.Abstractions;
-using Error = studyRats.Service.Platform.Domain.ValueObjects.Error;
-using studyRats.Service.Platform.Domain.ValueObjects;
+using Error = studyRats.Service.Platform.Domain.Abstractions.DomainErrors.Error;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 
 namespace studyRats.Service.Platform.Data
 {
@@ -26,11 +26,6 @@ namespace studyRats.Service.Platform.Data
             {
                 // Another user edited this record at the exact same time.
                 return Result.Fail(Errors.Database.DbUpdateConcurrency(ex));
-            }
-            catch (DbUpdateException ex)
-            {
-                // A database rule was broken (e.g., duplicate email address).
-                return Result.Fail(new Error("A database constraint was violated.").CausedBy(ex));
             }
             // We intentionally DO NOT catch SqlException, TimeoutException, etc.
             // Those are true exceptions and should be handled by the global exception handler,

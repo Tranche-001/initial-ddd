@@ -9,7 +9,11 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+<<<<<<< HEAD
 COPY ["Directory.Packages.props", "."]
+=======
+COPY ["../Directory.Packages.props", "."]
+>>>>>>> develop
 COPY ["studyRats.Service.Platform.Api/studyRats.Service.Platform.Api.csproj", "studyRats.Service.Platform.Api/"]
 COPY ["studyRats.Service.Platform.Application/studyRats.Service.Platform.Application.csproj", "studyRats.Service.Platform.Application/"]
 COPY ["studyRats.Service.Platform.Domain/studyRats.Service.Platform.Domain.csproj", "studyRats.Service.Platform.Domain/"]

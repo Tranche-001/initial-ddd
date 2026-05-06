@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace studyRats.Service.Platform.Domain.ValueObjects
+namespace studyRats.Service.Platform.Domain.Abstractions.DomainErrors
 {
     // Inheriting from ValueObject gives us equality for free!
     public class Error : ValueObject, IError

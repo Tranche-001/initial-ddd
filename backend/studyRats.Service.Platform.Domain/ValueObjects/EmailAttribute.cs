@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -19,6 +20,7 @@ public sealed class EmailAttribute : ValidationAttribute
         {
             return ValidationResult.Success;
         }
+        // Tem necessidade de ter essa verificação de nulo???
 
         // 2. Ensure the value is a string
         if (value is not string email)

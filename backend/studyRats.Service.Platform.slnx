@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Packages.props" />
+    <File Path="README.md" />
   </Folder>
   <Folder Name="/studyRats-lib-framework/">
     <Project Path="studyRats.Library.Framework/studyRats.Library.Framework.csproj" Id="808ee7d4-319b-4af2-bbd5-5ad0ab822203" />
@@ -14,11 +15,11 @@
   </Folder>
   <Folder Name="/studyRats-platform/providers/" />
   <Folder Name="/studyRats-platform/Source/">
-    <Project Path="iaas.Service.Platform.Facade/studyRats.Service.Platform.Facade.csproj" Id="99ca78e4-f1dd-4293-a3e6-029607de112f" />
     <Project Path="studyRats.Service.Platform.Api/studyRats.Service.Platform.Api.csproj" Id="01da7dc2-8381-45e9-be2c-e4bda0e738a9" />
     <Project Path="studyRats.Service.Platform.Application/studyRats.Service.Platform.Application.csproj" Id="8c839021-d09e-4763-aa71-a86ca70b65c5" />
     <Project Path="studyRats.Service.Platform.Data/studyRats.Service.Platform.Data.csproj" Id="4690404e-1091-41f6-a124-ff39a180dbe0" />
     <Project Path="studyRats.Service.Platform.Domain/studyRats.Service.Platform.Domain.csproj" Id="029475f7-8a11-49e7-afed-11f53f27256d" />
+    <Project Path="studyRats.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" Id="99ca78e4-f1dd-4293-a3e6-029607de112f" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />

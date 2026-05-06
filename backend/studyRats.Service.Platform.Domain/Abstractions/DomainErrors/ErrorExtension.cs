@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace studyRats.Service.Platform.Domain.ValueObjects
+namespace studyRats.Service.Platform.Domain.Abstractions.DomainErrors
 {
     public static class ErrorExtensions
     {

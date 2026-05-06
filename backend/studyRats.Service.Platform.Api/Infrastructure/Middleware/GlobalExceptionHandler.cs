@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using studyRats.Service.Platform.Api.Infrastructure;
-using studyRats.Service.Platform.Domain.ValueObjects;
+using studyRats.Service.Platform.Api.Common;
+using studyRats.Service.Platform.Domain.Abstractions.DomainErrors;
 using System.Net;
 using System.Text.Json;
 
@@ -47,3 +47,7 @@ namespace studyRats.Service.Platform.Api.Infrastructure.Middleware
         }
     }
 }
+
+//This is the specific type for Connection issue, I think
+//NpgsqlException
+//System.InvalidOperationException
