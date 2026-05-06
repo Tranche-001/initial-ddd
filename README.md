@@ -1,7 +1,5 @@
-# Projeto exemplo de implementação DDD 
-- Baseando-se nos artigos de Vladimir Khorikov e Martin Fowler
+# Projeto exemplo de implementação dos artigos de Vladimir Khorikov 
 - https://enterprisecraftsmanship.com/
-- https://martinfowler.com/
 
 # Para inicializar o projeto basta rodar
 ```
