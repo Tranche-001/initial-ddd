@@ -7,7 +7,7 @@
             public static Error NotFound() => new Error("Record not found", "record.not.found");
             public static Error NotFound(string entityName, string identifier)
             {
-                var error = new Error($"{entityName} with identifier {identifier} was not found.", "not.found");
+                var error = new Error($"{entityName} with identifier {identifier} was not found.", "record.not.found");
                 return error;
             }
 

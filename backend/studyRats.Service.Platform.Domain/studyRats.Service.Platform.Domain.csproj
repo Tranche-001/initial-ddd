@@ -37,10 +37,6 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\studyRats.Service.Platform.Facade\studyRats.Service.Platform.Facade.csproj" />
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
   </ItemGroup>
 
 </Project>
