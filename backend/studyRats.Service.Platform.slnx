@@ -1,7 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Packages.props" />
-    <File Path="README.md" />
   </Folder>
   <Folder Name="/studyRats-lib-framework/">
     <Project Path="studyRats.Library.Framework/studyRats.Library.Framework.csproj" Id="808ee7d4-319b-4af2-bbd5-5ad0ab822203" />

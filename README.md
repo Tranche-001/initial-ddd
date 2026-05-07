@@ -15,3 +15,8 @@ docker compose up
 ```
 docker compose down -v
 ```
+
+# Aqui você também encontra
+- Result Pattern
+- Repository Pattern
+- Command Query Segregation
