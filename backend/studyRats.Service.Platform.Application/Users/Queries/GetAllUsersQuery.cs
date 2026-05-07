@@ -27,7 +27,7 @@ namespace studyRats.Service.Platform.Application.Users.Queries
         {
             var users = await _userRepository.GetAllAsync();
 
-            if (users == null)
+            if (users == null || !users.Any())
             {
                 return Result.Fail(Errors.General.NotFound("User", "All"));
             }
